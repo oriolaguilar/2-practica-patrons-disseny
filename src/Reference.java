@@ -1,4 +1,13 @@
-public class Reference {
-    private int row;
-    private String column;
+public class Reference implements Expression {
+
+    private final Cell referencedTo;
+
+    @Override
+    public MaybeValue evaluate() {
+        return null;
+    }
+
+    public Reference(Cell ref){
+        referencedTo = ref;
+    }
 }

@@ -1,8 +1,12 @@
 public abstract class MaybeValue implements Expression {
+    private final boolean hasValue;
 
-
-    boolean hasValue(){
-        return false;
+    public MaybeValue(boolean hasValue){
+        this.hasValue = hasValue;
     }
 
+
+    public boolean hasValue(){
+        return hasValue;
+    }
 }

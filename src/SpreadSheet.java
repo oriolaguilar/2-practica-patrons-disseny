@@ -1,6 +1,14 @@
+import Excepcions.OutOfBounds;
+
 public class SpreadSheet {
+
+
     private static int SIZE = 5;
     private static final Sheet SHEET = new Sheet(SIZE);
+
+    public static void main(String[] args) throws OutOfBounds {
+        put("a1", 7);
+    }
 
     public static Expression plus(Expression expr1, Expression expr2){
         return null;
@@ -62,9 +70,16 @@ public class SpreadSheet {
     public static void put(String name, Expression expr){
         return;
     }
-    public static void put(String name, int value){
-        return;
+
+    public static void put(String name, int value) throws OutOfBounds {
+        SHEET.getCell(name).set(value);
+        MaybeValue mV = SHEET.getCell(name).getExpression().evaluate();
+        if(mV.hasValue()){
+            SomeValue sV = (SomeValue) mV;
+            System.out.println(sV.getValue());
+        }
     }
+
     public static void put(String name, String refName){
         return;
     }
