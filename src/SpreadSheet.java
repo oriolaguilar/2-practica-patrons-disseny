@@ -9,15 +9,15 @@ public class SpreadSheet {
     //Utilitzar per fer tests rapids
     public static void main(String[] args) throws OutOfBounds {
         put("c1", 13);
-        put("a1", "c1");
-        put("a2", "a1");
-        //Testing
-        MaybeValue mV = SHEET.getCell("a2").getExpression().evaluate();
-        if(mV.hasValue()){
-            SomeValue sV = (SomeValue) mV;
+        put("a1", 45);
+        put("a2", plus(67, "c1"));
+        //clear();
+
+        if (get("a2") instanceof SomeValue){
+            SomeValue sV = (SomeValue) get("a2");
             System.out.println(sV.getValue());
         }else{
-            System.out.println("No value");
+            System.out.println("No Object");
         }
     }
 
@@ -34,11 +34,15 @@ public class SpreadSheet {
         return null;
     }
     public static Expression plus(int value1, int value2){
-        return null;
+        return new Plus(new SomeValue(value1), new SomeValue(value2));
     }
-    public static Expression plus(int value1, String ref2){
-        return null;
+
+    public static Expression plus(int value1, String ref2) throws OutOfBounds {
+        Cell referencedCell = SHEET.getCell(ref2);
+        Reference reference = new Reference(referencedCell);
+        return new Plus(new SomeValue(value1), reference);
     }
+
     public static Expression plus(String ref1, Expression exp2){
         return null;
     }
@@ -75,8 +79,10 @@ public class SpreadSheet {
     public static Expression mult(String ref1, String ref2){
         return null;
     }
-    public static MaybeValue get(String name){
-        return null;
+
+    public static MaybeValue get(String name) throws OutOfBounds {
+        MaybeValue mV = SHEET.getCell(name).getExpression().evaluate();
+        return mV;
     }
 
     public static void put(String name, Expression expr) throws OutOfBounds {
