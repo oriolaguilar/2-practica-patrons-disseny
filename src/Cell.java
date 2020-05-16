@@ -6,7 +6,7 @@ public class Cell {
         expression = expr;
     }
     public MaybeValue evaluate(){
-        return null;
+        return expression.evaluate();
     }
 
     public Expression getExpression() {

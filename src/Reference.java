@@ -4,7 +4,7 @@ public class Reference implements Expression {
 
     @Override
     public MaybeValue evaluate() {
-        return null;
+        return referencedTo.evaluate();
     }
 
     public Reference(Cell ref){

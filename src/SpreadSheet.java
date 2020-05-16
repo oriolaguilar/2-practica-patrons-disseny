@@ -6,8 +6,19 @@ public class SpreadSheet {
     private static int SIZE = 5;
     private static final Sheet SHEET = new Sheet(SIZE);
 
+    //Utilitzar per fer tests rapids
     public static void main(String[] args) throws OutOfBounds {
-        put("a1", 7);
+        put("c1", 13);
+        put("a1", "c1");
+        put("a2", "a1");
+        //Testing
+        MaybeValue mV = SHEET.getCell("a2").getExpression().evaluate();
+        if(mV.hasValue()){
+            SomeValue sV = (SomeValue) mV;
+            System.out.println(sV.getValue());
+        }else{
+            System.out.println("No value");
+        }
     }
 
     public static Expression plus(Expression expr1, Expression expr2){
@@ -67,24 +78,21 @@ public class SpreadSheet {
     public static MaybeValue get(String name){
         return null;
     }
-    public static void put(String name, Expression expr){
-        return;
+
+    public static void put(String name, Expression expr) throws OutOfBounds {
+        SHEET.getCell(name).set(expr);
     }
 
     public static void put(String name, int value) throws OutOfBounds {
         SHEET.getCell(name).set(value);
-        MaybeValue mV = SHEET.getCell(name).getExpression().evaluate();
-        if(mV.hasValue()){
-            SomeValue sV = (SomeValue) mV;
-            System.out.println(sV.getValue());
-        }
     }
-
-    public static void put(String name, String refName){
-        return;
+    public static void put(String name, String refName) throws OutOfBounds {
+        Cell referencedCell = SHEET.getCell(refName);
+        Reference reference = new Reference(referencedCell);
+        SHEET.getCell(name).set(reference);
     }
     public static void clear(){
-
+        SHEET.clear();
     }
 
 

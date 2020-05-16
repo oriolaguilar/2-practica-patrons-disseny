@@ -7,9 +7,10 @@ public class Sheet {
 
     public Sheet(int size){
         this.sheet = new Cell[size][size];
-        initializeCells(size);
+        initializeCells();
     }
-    private void initializeCells(int size){
+    private void initializeCells(){
+        int size = sheet.length;
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
                 sheet[i][j] = new Cell(new NoValue());
@@ -25,8 +26,12 @@ public class Sheet {
         }
         return sheet[row][column];
     }
+    public void clear(){
+        initializeCells();
+    }
+
     private boolean outOfRange(int i1, int i2){
-        return i1 < 0 && i1 > 5 && i2 < 0 && i2 > 5;
+        return i1 < 0 || i1 > 5 || i2 < 0 || i2 > 5;
     }
 
     private int nameToColumn(String name) {

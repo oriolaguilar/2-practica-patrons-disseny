@@ -6,6 +6,6 @@ public class NoValue extends MaybeValue {
 
     @Override
     public MaybeValue evaluate() {
-        return null;
+        return this;
     }
 }
