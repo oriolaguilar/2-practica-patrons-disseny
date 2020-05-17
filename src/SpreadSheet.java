@@ -11,6 +11,7 @@ public class SpreadSheet {
         put("c1", 13);
         put("a1", 45);
         put("a2", plus(67, "c1"));
+        put("c1", 0);
         //clear();
 
         if (get("a2") instanceof SomeValue){
@@ -81,16 +82,17 @@ public class SpreadSheet {
     }
 
     public static MaybeValue get(String name) throws OutOfBounds {
-        MaybeValue mV = SHEET.getCell(name).getExpression().evaluate();
-        return mV;
+        return SHEET.getCell(name).getValue();
     }
 
     public static void put(String name, Expression expr) throws OutOfBounds {
         SHEET.getCell(name).set(expr);
+        SHEET.getCell(name).evaluate();
     }
 
     public static void put(String name, int value) throws OutOfBounds {
         SHEET.getCell(name).set(value);
+        SHEET.getCell(name).evaluate();
     }
     public static void put(String name, String refName) throws OutOfBounds {
         Cell referencedCell = SHEET.getCell(refName);

@@ -1,3 +1,4 @@
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class Operation implements Expression {
@@ -11,7 +12,10 @@ public abstract class Operation implements Expression {
     }
 
     public Set<Cell> references(){
-        return null;
+        Set<Cell> allCellsInvolved = new HashSet<>();
+        allCellsInvolved.addAll(e1.references());
+        allCellsInvolved.addAll(e2.references());
+        return allCellsInvolved;
     }
 
 

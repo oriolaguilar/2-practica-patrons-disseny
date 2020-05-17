@@ -1,3 +1,6 @@
+import java.util.HashSet;
+import java.util.Set;
+
 public class SomeValue extends MaybeValue {
 
     private final int value;
@@ -14,5 +17,10 @@ public class SomeValue extends MaybeValue {
     @Override
     public MaybeValue evaluate() {
         return this;
+    }
+
+    @Override
+    public Set<Cell> references() {
+        return new HashSet<>();
     }
 }
