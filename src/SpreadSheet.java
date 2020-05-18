@@ -1,21 +1,28 @@
 import Excepcions.OutOfBounds;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 public class SpreadSheet {
 
 
     private static int SIZE = 5;
     private static final Sheet SHEET = new Sheet(SIZE);
+    private static final List<String> allPositions = allPositions();
 
     //Utilitzar per fer tests rapids
     public static void main(String[] args) throws OutOfBounds {
-        put("c1", 13);
-        put("a1", 45);
-        put("a2", plus(67, "c1"));
-        put("c1", 0);
-        //clear();
+        clear();
+        put("a1", 55);
+        put("a2", "a1");
+        put("a3", "a2");
+        put("a4", "a3");
+        put("a1", 24);
 
-        if (get("a2") instanceof SomeValue){
-            SomeValue sV = (SomeValue) get("a2");
+        String name = "a3";
+        if (get(name) instanceof SomeValue){
+            SomeValue sV = (SomeValue) get(name);
             System.out.println(sV.getValue());
         }else{
             System.out.println("No Object");
@@ -88,16 +95,44 @@ public class SpreadSheet {
     public static void put(String name, Expression expr) throws OutOfBounds {
         SHEET.getCell(name).set(expr);
         SHEET.getCell(name).evaluate();
+        recalcualteAffectedCells(name);
     }
-
+    private static void recalcualteAffectedCells(String changedCell) throws OutOfBounds {
+        for (String position : allPositions){
+            if (affectedCell(changedCell, position)){
+                SHEET.getCell(position).evaluate();
+                recalcualteAffectedCells(position);
+            }
+        }
+    }
+    private static boolean affectedCell(String affectedCell, String position) throws OutOfBounds {
+        Set<Cell> referencedCells = SHEET.getCell(position).getExpression().references();
+        return referencedCells.contains(SHEET.getCell(affectedCell));
+    }
+    private static List<String> allPositions(){
+        List<String> list = new ArrayList<>();
+        for(int i = 0; i < SIZE; i++){
+            char row = (char) ((int) 'a' + i);
+            for(int j = 0; j < SIZE; j++){
+                String position = String.valueOf(row) + String.valueOf(j+1);
+                list.add(position);
+            }
+        }
+        return list;
+    }
     public static void put(String name, int value) throws OutOfBounds {
         SHEET.getCell(name).set(value);
         SHEET.getCell(name).evaluate();
+        recalcualteAffectedCells(name);
+
     }
     public static void put(String name, String refName) throws OutOfBounds {
         Cell referencedCell = SHEET.getCell(refName);
         Reference reference = new Reference(referencedCell);
         SHEET.getCell(name).set(reference);
+        SHEET.getCell(name).evaluate();
+        recalcualteAffectedCells(name);
+
     }
     public static void clear(){
         SHEET.clear();

@@ -41,7 +41,7 @@ public class Sheet {
 
     private int nameToRow(String name){
         String number = name.substring(1);
-        return Integer.parseInt(number);
+        return Integer.parseInt(number) - 1;
     }
 
 }
