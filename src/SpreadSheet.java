@@ -13,12 +13,12 @@ public class SpreadSheet {
 
     //Utilitzar per fer tests rapids
     public static void main(String[] args) throws OutOfBounds {
-        clear();
-        put("a1", 55);
+        put("a1", 4);
         put("a2", "a1");
         put("a3", "a2");
-        put("a4", "a3");
-        put("a1", 24);
+        put("b4", 2);
+        put("a1", plus(3, "b4"));
+        put("a2", 10);
 
         String name = "a3";
         if (get(name) instanceof SomeValue){
@@ -94,9 +94,23 @@ public class SpreadSheet {
 
     public static void put(String name, Expression expr) throws OutOfBounds {
         SHEET.getCell(name).set(expr);
-        SHEET.getCell(name).evaluate();
-        recalcualteAffectedCells(name);
+        SHEET.getCell(name).recalculate();
+
     }
+
+    public static void put(String name, int value) throws OutOfBounds {
+        SHEET.getCell(name).set(value);
+        SHEET.getCell(name).recalculate();
+
+    }
+
+    public static void put(String name, String refName) throws OutOfBounds {
+        Cell referencedCell = SHEET.getCell(refName);
+        Reference reference = new Reference(referencedCell);
+        SHEET.getCell(name).set(reference);
+        SHEET.getCell(name).recalculate();
+    }
+
     private static void recalcualteAffectedCells(String changedCell) throws OutOfBounds {
         for (String position : allPositions){
             if (affectedCell(changedCell, position)){
@@ -120,20 +134,7 @@ public class SpreadSheet {
         }
         return list;
     }
-    public static void put(String name, int value) throws OutOfBounds {
-        SHEET.getCell(name).set(value);
-        SHEET.getCell(name).evaluate();
-        recalcualteAffectedCells(name);
 
-    }
-    public static void put(String name, String refName) throws OutOfBounds {
-        Cell referencedCell = SHEET.getCell(refName);
-        Reference reference = new Reference(referencedCell);
-        SHEET.getCell(name).set(reference);
-        SHEET.getCell(name).evaluate();
-        recalcualteAffectedCells(name);
-
-    }
     public static void clear(){
         SHEET.clear();
     }

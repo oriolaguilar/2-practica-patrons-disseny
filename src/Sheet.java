@@ -13,7 +13,7 @@ public class Sheet {
         int size = sheet.length;
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
-                sheet[i][j] = new Cell(new NoValue());
+                sheet[i][j] = new Cell(new NoValue(), String.valueOf(i)+String.valueOf(j));
             }
         }
     }
@@ -26,6 +26,7 @@ public class Sheet {
         }
         return sheet[row][column];
     }
+
     public void clear(){
         initializeCells();
     }
