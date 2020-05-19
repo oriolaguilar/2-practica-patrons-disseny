@@ -13,7 +13,8 @@ public class Sheet {
         int size = sheet.length;
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
-                sheet[i][j] = new Cell(new NoValue(), String.valueOf(i)+String.valueOf(j));
+                sheet[i][j] = new Cell(new NoValue());
+                sheet[i][j].recalculate();
             }
         }
     }
@@ -25,6 +26,19 @@ public class Sheet {
             throw new OutOfBounds();
         }
         return sheet[row][column];
+    }
+
+    public void insertInto(String name, Expression expression) throws OutOfBounds {
+        int row = nameToRow(name);
+        int column = nameToColumn(name);
+        if (outOfRange(row, column)){
+            throw new OutOfBounds();
+        }
+        sheet[row][column].insert(expression);
+    }
+
+    public void insertInto(String name, int value) throws OutOfBounds {
+        insertInto(name, new SomeValue(value));
     }
 
     public void clear(){

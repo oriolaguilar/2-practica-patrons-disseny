@@ -10,6 +10,14 @@ public class Mult extends Operation {
 
     @Override
     public MaybeValue evaluate() {
-        return null;
+        MaybeValue mV1 = e1.evaluate();
+        MaybeValue mV2 = e2.evaluate();
+        if (mV1 instanceof NoValue || mV2 instanceof NoValue){
+            return new NoValue();
+        }else{
+            SomeValue sV1 = (SomeValue) mV1;
+            SomeValue sV2 = (SomeValue) mV2;
+            return new SomeValue(operate(sV1.getValue(), sV2.getValue()));
+        }
     }
 }

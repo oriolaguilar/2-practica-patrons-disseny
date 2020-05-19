@@ -1,19 +1,15 @@
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 public class Cell {
 
-    public String id;
     private Expression expression;
     private MaybeValue value;
     private List<Cell> observers = new ArrayList<>();
 
-    public Cell(Expression expr, String id){
+    public Cell(Expression expr){
         expression = expr;
-        this.id = id;
     }
 
     public MaybeValue getValue() {
@@ -23,9 +19,11 @@ public class Cell {
     public void registerObservers(Cell cell){
         observers.add(cell);
     }
+
     public void unregisterObservers(Cell cell){
         observers.remove(cell);
     }
+
     private void notifyObservers(){
         for(Cell observer : observers){
             observer.recalculate();
@@ -40,13 +38,16 @@ public class Cell {
     public MaybeValue evaluate(){
         MaybeValue value = expression.evaluate();
         this.value = value;
-        //notifyObservers();
-        //System.out.println("value");
         return value;
     }
 
     public Expression getExpression() {
         return expression;
+    }
+
+    public void insert(Expression exp){
+        set(exp);
+        recalculate();
     }
 
     public void set(Expression exp) {
@@ -56,6 +57,7 @@ public class Cell {
         observeNewReferences(oldReferences, newReferences);
     }
 
+
     private void observeNewReferences(Set<Cell> oldReferences, Set<Cell> newReferences){
         for(Cell old : oldReferences){
             old.unregisterObservers(this);
@@ -64,8 +66,4 @@ public class Cell {
             toObserve.registerObservers(this);
         }
     }
-    public void set(int value){
-        set(new SomeValue(value));
-    }
-
 }
