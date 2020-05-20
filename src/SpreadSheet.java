@@ -17,16 +17,18 @@ public class SpreadSheet {
         put("a3", "a2");
         put("b4", mult(2, 4));
         put("a1", mult(3, "b4"));
-        clear();
-        put("a2", 10);
+        //clear();
+        put("a2", "d3");
 
         String name = "a1";
-        if (get(name) instanceof SomeValue){
+        if (get(name).hasValue()){
             SomeValue sV = (SomeValue) get(name);
             System.out.println(sV.getValue());
         }else{
             System.out.println("No Object");
         }
+
+        System.out.println(get("a2") == get("d4"));
     }
 
     public static Expression plus(Expression expr1, Expression expr2){

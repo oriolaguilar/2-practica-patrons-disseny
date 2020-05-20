@@ -18,5 +18,20 @@ public abstract class Operation implements Expression {
         return allCellsInvolved;
     }
 
+    @Override
+    public MaybeValue evaluate() {
+        MaybeValue mV1 = e1.evaluate();
+        MaybeValue mV2 = e2.evaluate();
+        if (!mV1.hasValue() || !mV2.hasValue()){
+            return new NoValue();
+        }else{
+            SomeValue sV1 = (SomeValue) mV1;
+            SomeValue sV2 = (SomeValue) mV2;
+            return new SomeValue(operate(sV1.getValue(), sV2.getValue()));
+        }
+    }
+
+    public abstract int operate(int i1, int i2);
+
 
 }

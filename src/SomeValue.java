@@ -10,6 +10,12 @@ public class SomeValue extends MaybeValue {
         this.value = value;
     }
 
+    @Override
+    public boolean equals(Object o){
+        SomeValue sV = (SomeValue) o;
+        return this.value == sV.value;
+    }
+
     public int getValue() {
         return value;
     }
