@@ -1,3 +1,5 @@
+package spreadsheet;
+
 import Excepcions.OutOfBounds;
 
 public class Sheet {

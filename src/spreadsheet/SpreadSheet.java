@@ -1,8 +1,6 @@
-import Excepcions.OutOfBounds;
+package spreadsheet;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import Excepcions.OutOfBounds;
 
 public class SpreadSheet {
 
