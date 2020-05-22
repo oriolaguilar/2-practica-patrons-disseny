@@ -7,7 +7,7 @@ import spreadsheet.SomeValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static  spreadsheet.SpreadSheet.*;
-public class SpreadSheetTest {
+public class SimpleSpreadSheetTest {
 
     @BeforeEach
     public void setUpSheet() throws OutOfBounds {
