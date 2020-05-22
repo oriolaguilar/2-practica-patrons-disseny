@@ -4,8 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import spreadsheet.SomeValue;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static  spreadsheet.SpreadSheet.*;
 public class SimpleSpreadSheetTest {
 
@@ -17,8 +16,8 @@ public class SimpleSpreadSheetTest {
     }
 
     @Test
-    public void most_simple_case() throws OutOfBounds {
-        assertEquals(new SomeValue(100), get("b2"));
+    public void most_simple_case(){
+        assertAll(()-> assertEquals(new SomeValue(100), get("b1")),()->assertEquals(new SomeValue(100), get("b2")));
     }
 
     @Test
