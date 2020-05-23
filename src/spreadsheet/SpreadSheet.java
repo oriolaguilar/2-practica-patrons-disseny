@@ -132,6 +132,10 @@ public class SpreadSheet {
         SHEET.insertInto(name, reference);
     }
 
+    public static Cell getCell(String name) throws OutOfBounds {
+        return SHEET.getCell(name);
+    }
+
     public static void clear(){
         SHEET.clear();
     }
