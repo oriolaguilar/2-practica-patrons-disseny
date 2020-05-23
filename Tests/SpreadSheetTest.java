@@ -41,5 +41,6 @@ public class SpreadSheetTest {
 
     @AfterEach
     public void clearSheet() {
-        clear(); }
+        clear();
+    }
 }
