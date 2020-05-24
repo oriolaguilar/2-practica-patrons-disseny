@@ -34,6 +34,16 @@ public class ComplexSpreadSheetTest {
     }
 
     @Test
+    public void beginWithAllCellsNoValueFinallySomeValue() throws OutOfBounds {
+        put("a1", new NoValue());
+        assertAll(()->assertFalse(get("c1").hasValue()),()->assertFalse(get("c3").hasValue()),
+                ()->assertFalse(get("d1").hasValue()), ()->assertFalse(get("d2").hasValue()));
+        put("a1", new SomeValue(2));
+        assertAll(()->assertEquals(new SomeValue(40), get("c1")), ()->assertEquals(new SomeValue(1240), get("c3")),
+                ()->assertEquals(new SomeValue(80), get("d1")), ()->assertEquals(new SomeValue(1600), get("d2")));
+    }
+
+    @Test
      public void chainedExpressions(){
         assertAll(()->assertEquals(new SomeValue(200), get("c1")), ()->assertEquals(new SomeValue(1200), get("c2")),
                 ()->assertEquals(new SomeValue(1400), get("c3")));
