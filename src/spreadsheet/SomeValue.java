@@ -14,6 +14,9 @@ public class SomeValue extends MaybeValue {
 
     @Override
     public boolean equals(Object o){
+        if (o == null){
+            return false;
+        }
         SomeValue sV = (SomeValue) o;
         return this.value == sV.value;
     }

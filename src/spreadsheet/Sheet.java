@@ -6,9 +6,11 @@ import Excepcions.OutOfBounds;
 public class Sheet {
 
     private Cell[][] sheet;
+    private int size;
 
 
     public Sheet(int size){
+        this.size = size;
         this.sheet = new Cell[size][size];
         initializeCells();
     }
@@ -49,7 +51,7 @@ public class Sheet {
     }
 
     private boolean outOfRange(int i1, int i2){
-        return i1 < 0 || i1 > 5 || i2 < 0 || i2 > 5;
+        return i1 < 0 || i1 > size || i2 < 0 || i2 > size;
     }
 
     private int nameToColumn(String name) {

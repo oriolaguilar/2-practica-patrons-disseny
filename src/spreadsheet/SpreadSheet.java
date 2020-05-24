@@ -32,17 +32,21 @@ public class SpreadSheet {
     public static Expression plus(Expression expr1, Expression expr2){
         return new Plus(expr1, expr2);
     }
+
     public static Expression plus(Expression expr1, int value2){
         return new Plus(expr1, new SomeValue(value2));
     }
+
     public static Expression plus(Expression expr1, String ref2) throws OutOfBounds {
         Cell referencedCell = SHEET.getCell(ref2);
         Reference reference = new Reference(referencedCell);
         return new Plus(expr1, reference);
     }
+
     public static Expression plus(int value1, Expression expr2){
         return new Plus(new SomeValue(value1), expr2);
     }
+
     public static Expression plus(int value1, int value2){
         return new Plus(new SomeValue(value1), new SomeValue(value2));
     }
@@ -58,11 +62,13 @@ public class SpreadSheet {
         Reference reference = new Reference(referencedCell);
         return new Plus(reference, exp2);
     }
+
     public static Expression plus(String ref1, int value2) throws OutOfBounds {
         Cell referencedCell = SHEET.getCell(ref1);
         Reference reference = new Reference(referencedCell);
         return new Plus(reference, new SomeValue(value2));
     }
+
     public static Expression plus(String ref1, String ref2) throws OutOfBounds {
         Cell referencedCell1 = SHEET.getCell(ref1);
         Reference reference1 = new Reference(referencedCell1);
@@ -74,17 +80,21 @@ public class SpreadSheet {
     public static Expression mult(Expression expr1, Expression expr2){
         return new Mult(expr1, expr2);
     }
+
     public static Expression mult(Expression expr1, int value2){
         return new Mult(expr1, new SomeValue(value2));
     }
+
     public static Expression mult(Expression expr1, String ref2) throws OutOfBounds {
         Cell referencedCell = SHEET.getCell(ref2);
         Reference reference = new Reference(referencedCell);
         return new Mult(expr1, reference);
     }
+
     public static Expression mult(int value1, Expression expr2){
         return new Mult(new SomeValue(value1), expr2);
     }
+
     public static Expression mult(int value1, int value2){
         return new Mult(new SomeValue(value1), new SomeValue(value2));
     }
@@ -100,11 +110,13 @@ public class SpreadSheet {
         Reference reference = new Reference(referencedCell);
         return new Mult(reference, exp2);
     }
+
     public static Expression mult(String ref1, int value2) throws OutOfBounds {
         Cell referencedCell = SHEET.getCell(ref1);
         Reference reference = new Reference(referencedCell);
         return new Mult(reference, new SomeValue(value2));
     }
+
     public static Expression mult(String ref1, String ref2) throws OutOfBounds {
         Cell referencedCell1 = SHEET.getCell(ref1);
         Reference reference1 = new Reference(referencedCell1);
@@ -112,7 +124,6 @@ public class SpreadSheet {
         Reference reference2 = new Reference(referencedCell2);
         return new Mult(reference1, reference2);
     }
-
 
     public static MaybeValue get(String name) throws OutOfBounds {
         return SHEET.getCell(name).getValue();

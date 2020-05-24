@@ -9,9 +9,7 @@ import spreadsheet.SomeValue;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static  spreadsheet.SpreadSheet.*;
 public class SpreadSheetTest {
 
@@ -39,7 +37,7 @@ public class SpreadSheetTest {
     }
 
     @Test
-    public void recalculation_works() throws OutOfBounds {
+    public void recalculationWorks() throws OutOfBounds {
         put("a1", 42);
         put("a2", 20);
         assertEquals(new SomeValue(840), get("a3"));
@@ -53,12 +51,10 @@ public class SpreadSheetTest {
         Expression exp = mult("a1", "a2");
         assertEquals(references, exp.references());
     }
-
-
-
+    
     @Test
     public void singletonWorks() throws OutOfBounds {
-        assertTrue(get("a1") == get("a2"));
+        assertSame(get("a1"), get("a2"));
     }
 
     @AfterEach

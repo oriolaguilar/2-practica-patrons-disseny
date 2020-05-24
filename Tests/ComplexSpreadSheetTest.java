@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static spreadsheet.SpreadSheet.*;
 
 public class ComplexSpreadSheetTest {
+
     @BeforeEach
     public void setUp() throws OutOfBounds {
          put("c1", mult("a1", "b1"));
@@ -21,7 +22,7 @@ public class ComplexSpreadSheetTest {
     }
 
     @Test
-    public void changing_value_to_chained_expressions() throws OutOfBounds {
+    public void changingValueToChainedExpressions() throws OutOfBounds {
         put("d1", plus("c1", "b2"));
         put("d2", mult("d1", "b1"));
         assertEquals(new SomeValue(4800), get("d2"));
@@ -29,13 +30,13 @@ public class ComplexSpreadSheetTest {
         assertEquals(new SomeValue(40800), get("d2"));
     }
     @Test
-     public void chained_expressions(){
+     public void chainedExpressions(){
         assertAll(()->assertEquals(new SomeValue(200), get("c1")), ()->assertEquals(new SomeValue(1200), get("c2")),
                 ()->assertEquals(new SomeValue(1400), get("c3")));
     }
 
     @Test
-    public void chained_NoValue_propagations() throws OutOfBounds {
+    public void chainedNoValuePropagations() throws OutOfBounds {
         put("d3", plus("c1", "b2"));
         put("d4", mult("d3", "b1"));
         put("a1", new NoValue());
@@ -44,7 +45,7 @@ public class ComplexSpreadSheetTest {
     }
 
     @Test
-     public void chained_propagations() throws OutOfBounds {
+     public void chainedPropagations() throws OutOfBounds {
         put("a1", "b1");
         assertEquals(new SomeValue(1600), get("c3"));
     }
