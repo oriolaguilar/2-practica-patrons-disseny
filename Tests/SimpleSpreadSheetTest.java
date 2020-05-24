@@ -6,12 +6,13 @@ import spreadsheet.Cell;
 import spreadsheet.Expression;
 import spreadsheet.SomeValue;
 
+
 import java.util.HashSet;
 import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static  spreadsheet.SpreadSheet.*;
-public class SpreadSheetTest {
+
+public class SimpleSpreadSheetTest {
 
     @BeforeEach
     public void setUpSheet() throws OutOfBounds {
@@ -21,8 +22,8 @@ public class SpreadSheetTest {
     }
 
     @Test
-    public void mostSimpleCase() throws OutOfBounds {
-        assertEquals(new SomeValue(100), get("b2"));
+    public void mostSimpleCase(){
+        assertAll(()-> assertEquals(new SomeValue(100), get("b1")),()->assertEquals(new SomeValue(100), get("b2")));
     }
 
     @Test

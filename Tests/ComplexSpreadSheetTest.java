@@ -19,6 +19,8 @@ public class ComplexSpreadSheetTest {
          put("b1", 20);
          put("a2", 30);
          put("b2", 40);
+         put("d1", plus("c1", "b2"));
+         put("d2", mult("d1", "b1"));
     }
 
     @Test
@@ -27,8 +29,10 @@ public class ComplexSpreadSheetTest {
         put("d2", mult("d1", "b1"));
         assertEquals(new SomeValue(4800), get("d2"));
         put("a1", 100);
-        assertEquals(new SomeValue(40800), get("d2"));
+        assertAll(()->assertEquals(new SomeValue(2000), get("c1")), ()->assertEquals(new SomeValue(3200), get("c3")),
+                ()->assertEquals(new SomeValue(2040), get("d1")), ()->assertEquals(new SomeValue(40800), get("d2")));
     }
+
     @Test
      public void chainedExpressions(){
         assertAll(()->assertEquals(new SomeValue(200), get("c1")), ()->assertEquals(new SomeValue(1200), get("c2")),
@@ -40,8 +44,8 @@ public class ComplexSpreadSheetTest {
         put("d3", plus("c1", "b2"));
         put("d4", mult("d3", "b1"));
         put("a1", new NoValue());
-        assertAll(()->assertFalse(get("c1").hasValue()), ()->assertFalse(get("d3").hasValue()),
-                ()->assertFalse(get("d4").hasValue()));
+        assertAll(()->assertFalse(get("c1").hasValue()),()->assertFalse(get("c3").hasValue()),
+                ()->assertFalse(get("d1").hasValue()), ()->assertFalse(get("d2").hasValue()));
     }
 
     @Test
